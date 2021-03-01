@@ -17,6 +17,7 @@ public class PartyServiceTest {
     private List<Person> peopleList;
     private Set<Person> friendsSet1;
     private Set<Person> friendsSet2;
+    private Set<Person> friendsSet3;
 
 
     @Before
@@ -26,47 +27,52 @@ public class PartyServiceTest {
         peopleList = initPeopleList();
         friendsSet1 = initFriendsSet1();
         friendsSet2 = initFriendsSet2();
+        friendsSet3 = initFriendsSet3();
     }
 
     private Set<Person> initFriendsSet1() {
         return Set.of(
-                new Person("Jola", "Podolska", 48, "New York City"),
-                new Person("Jackie", "Williams", 32, "San Diego", friendsSet2),
-                new Person("Anna", "Jones", 28, "Chicago", friendsSet2),
-                new Person("Sarah", "Miller", 41, "Miami", friendsSet2),
-                new Person("Nick", "Davis", 37, "New York City", friendsSet2)
+                new Person("Jola", "Podolska", 48, "New York City", initFriendsSet3()),
+                new Person("Jackie", "Williams", 32, "San Diego", initFriendsSet3()),
+                new Person("Anna", "Jones", 28, "Chicago", initFriendsSet3()),
+                new Person("Sarah", "Miller", 41, "Miami", initFriendsSet3()),
+                new Person("Nick", "Davis", 37, "New York City", initFriendsSet3())
         );
     }
 
     private Set<Person> initFriendsSet2() {
         return Set.of(
-                new Person("Monica", "McDonald", 21, "Denver", friendsSet1),
-                new Person("Mark", "Gustafsson", 32, "San Diego", friendsSet1),
-                new Person("Stephen", "King", 28, "Dallas", friendsSet1),
-                new Person("Jeff", "MacKeef", 41, "Denver", friendsSet1),
-                new Person("Jola", "Podolska", 48, "New York City")
+                new Person("Monica", "McDonald", 21, "Denver", initFriendsSet3()),
+                new Person("Mark", "Gustafsson", 32, "San Diego", initFriendsSet3()),
+                new Person("Stephen", "King", 28, "Dallas", initFriendsSet3()),
+                new Person("Jeff", "MacKeef", 41, "Denver", initFriendsSet3()),
+                new Person("Jola", "Podolska", 48, "New York City", initFriendsSet3())
+        );
+    }
+
+    private Set<Person> initFriendsSet3() {
+        return Set.of(
         );
     }
 
 
     private List<Person> initPeopleList() {
         return List.of(
-                new Person("John", "Kowalski", 21, "Denver", friendsSet1),
-                new Person("Anna", "Nowak", 48, "San Diego", friendsSet2),
-                new Person("Tom", "Brown", 28, "Chicago", friendsSet1),
-                new Person("Magda", "Smith", 31, "Denver", friendsSet2),
-                new Person("Jola", "Podolska", 48, "New York City")
+                new Person("John", "Kowalski", 21, "Denver", initFriendsSet1()),
+                new Person("Anna", "Nowak", 48, "San Diego", initFriendsSet2()),
+                new Person("Tom", "Brown", 28, "Chicago", initFriendsSet1()),
+                new Person("Magda", "Smith", 31, "Denver", initFriendsSet2()),
+                new Person("Jola", "Podolska", 48, "New York City", initFriendsSet3())
         );
     }
 
     @Test
-    public void hasSuperStar() {
+    public void shouldReturnIfHasSuperStar() {
         //given
-        party.setPersonPartyList(peopleList);
-        System.out.println(party.getPersonPartyList());
+        Party p = new Party(peopleList);
 
         //when
-        boolean result = partyService.hasSuperStar(party);
+        boolean result = partyService.hasSuperStar(p);
 
         //then
         Assert.assertTrue(result);

@@ -60,13 +60,21 @@ public class PersonServiceTest {
     @Test
     public void shouldReturnOldestWoman() {
         //given
-        List<String> result1 = List.of("Jola", "Anna");
-        List<String> result2 = List.of("Magda", "Magda");
-        List<String> result3 = List.of();
+        List<Person> result1 = List.of(
+                new Person("Anna", "Nowak", 48, "San Diego"),
+                new Person("Jola", "Podolska", 48, "New York City")
+        );
+
+        List<Person> result2 = List.of(
+                new Person("Magda", "Smith", 31, "Denver"),
+                new Person("Magda", "Smith", 31, "Denver")
+        );
+
+        List<Person> result3 = List.of();
 
         //when
-        List<String> oldestWomen = personService.getOldestWomen(peopleList);
-        List<String> oldestWomen2 = personService.getOldestWomen(peopleList);
+        List<Person> oldestWomen = personService.getOldestWomen(peopleList);
+        List<Person> oldestWomen2 = personService.getOldestWomen(peopleList);
 
         //then
         Assert.assertEquals(result1, oldestWomen);

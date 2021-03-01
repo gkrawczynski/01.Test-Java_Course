@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class Party {
-    List<Person> personPartyList;
+    private List<Person> personPartyList;
 
     public Party(List<Person> personPartyList) {
         if (personPartyList != null) {

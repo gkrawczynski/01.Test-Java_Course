@@ -15,8 +15,8 @@ public class PersonService {
 
     /* metoda, ktora zwraca najstarsza kobiete (imie konczy sie na 'a')
         lub NoWomenException jesli brak kobiet na liscie */
-    public List<String> getOldestWomen(List<Person> personList) {
-        List<String> oldestWomen = new ArrayList<>();
+    public List<Person> getOldestWomen(List<Person> personList) {
+        List<Person> oldestWomen = new ArrayList<>();
 
         if (personList.isEmpty() || personList == null) {
             try {
@@ -25,7 +25,7 @@ public class PersonService {
                 e.printStackTrace();
             }
         } else {
-            Map<String, Integer> womenMap = new HashMap<>();
+            Map<Person, Integer> womenMap = new HashMap<>();
 
             int maxAge = Integer.MIN_VALUE;
 
@@ -38,7 +38,7 @@ public class PersonService {
                     if (maxAge < personAge) {
                         maxAge = personAge;
                     }
-                    womenMap.put(person.getFirstName(), personAge);
+                    womenMap.put(person, personAge);
                 }
             }
 
@@ -48,7 +48,7 @@ public class PersonService {
                 Map.Entry mapEntry = (Map.Entry) i.next();
                 int tmp = (int) mapEntry.getValue();
                 if (tmp == maxAge) {
-                    oldestWomen.add((String) mapEntry.getKey());
+                    oldestWomen.add((Person) mapEntry.getKey());
                 }
             }
         }

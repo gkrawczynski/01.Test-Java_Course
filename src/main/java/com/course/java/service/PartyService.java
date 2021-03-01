@@ -18,19 +18,24 @@ public class PartyService {
         } else {
             List<Person> partyPeopleList = party.getPersonPartyList();
             int partyPeopleListSize = partyPeopleList.size();
+            Person potentialStar;
+            String potentialStarFullName = "";
 
             int counter = 0;
             for (Person person : partyPeopleList) {
                 if (person.getFriendsSet().isEmpty()) {
+                    potentialStar = person;
+                    potentialStarFullName = person.getFirstName() + " " + person.getLastName();
                     for (Person p : partyPeopleList) {
-                        if (p.getFriendsSet().contains(person)) {
+                        if (p.getFriendsSet().contains(potentialStar)) {
                             counter++;
                         }
                     }
                 }
             }
 
-            if (counter == partyPeopleListSize - 1){
+            if (!potentialStarFullName.isEmpty() && counter == partyPeopleListSize - 1){
+                System.out.println(potentialStarFullName);
                 return true;
             } else {
                 return false;

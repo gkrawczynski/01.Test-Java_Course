@@ -3,22 +3,19 @@ package com.course.java.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 public class Person {
-    String firstName;
-    String lastName;
-    int age;
-    String city;
-    Set<Person> friendsSet;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private String city;
+    private Set<Person> friendsSet;
 
-    public Person(String firstName, String lastName, int age, String city, Set<Person> friendsSet) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.city = city;
-        this.friendsSet = friendsSet;
+    public Person() {
     }
 
     public Person(String firstName, String lastName, int age, String city) {
@@ -27,5 +24,18 @@ public class Person {
         this.age = age;
         this.city = city;
     }
+
+    public Person(String firstName, String lastName, int age, String city, Set<Person> friendsSet) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.city = city;
+        if (friendsSet != null) {
+            this.friendsSet = friendsSet;
+        } else {
+            this.friendsSet = new HashSet<>();
+        }
+    }
+
 }
 
