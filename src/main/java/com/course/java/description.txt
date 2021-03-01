@@ -1,0 +1,52 @@
+Zakres materiału:
+1)anagram,
+2)palindrom,
+3)listy,
+4)sety,
+5)mapy,
+6)klasy,
+7)metody,
+8)dziedziczenie,
+9)regexy,
+10)lombok
+ 
+Zadanie 01:
+a) Napisz kod w taki sposób aby poniższy fragment zadziałał i dał dokładnie taki wynik jak oczekuje:
+Figura[] figury = {Figura.stworzKwadrat(10), Figura.stworzKolo(20), Figura.stworzProstokat(10,20),
+        Figura.stworzKwadrat(15)};
+
+        for(Figura f : figury { System.out.println(f); }
+
+System.out powinien wypisac:
+ Figura nr 1: Kwadrat o boku 10.
+ Figura nr 2: Koło o promienu 10.
+ Figura nr 3: Prostokat o bokach 10x20.
+ Figura nr 4: Kwadrat o boku 15.
+
+b)Następnie: (na tej liście na które Ty stworzłeś, nie z punktu a) )
+ - znajdź figurę z największym obwodem
+ - znajdź figurę z największym polem
+
+c) for(Figura f : figury) { if(f.equals(Figura.stworzProstokat(10,20)){ System.out.println("tu powinno wejsc"); } }     ???
+
+d) napisz metode ktora napisze ktorego typu figur jest najwiecej w tablicy // (lub liscie figur)
+ 
+ps: mozesz sobie zmienic tablice figur na liste figur:)
+ 
+
+Zadanie02:
+Stworz sobie klase Osoba (imie, nazwisko, miasto, wiek)
+ - metoda co zwraca najstarsza kobiete (imie konczy sie na 'a')
+ - lub NoWomenException jesli brak kobiet na liscie
+ - metode ktora zwraca sredni wiek wszystkich osob
+ - metode ktora zwraca sredni wiek mezczyzn
+ - metode ktora zwrca sredni wiek kobiet
+ - metode ktora agreguje dwie metody powyzej (tzn: jako drugi parametr przyjmuje funkcje ktora okresla plec)            ???
+ - metode ktora znajdze miasto w ktorym zyje najwiecej ludzi
+ - metode ktora zwroci wszystkie rozne miasta z listy osob (rozne tzn: bez powtorzen)
+
+
+Zadanie 03:
+napisz metode boolean hasSuperStar(Party party) ktora sprawdza czy na imprezie zajduje sie gwiazda
+gwiazda to osoba ktora nie zna nikogo,ale wszyscy znaja gwiazde.
+na imprezie jest lista Osob (Person[name]) i kazdy Person ma Set znajomych Set<Person>
