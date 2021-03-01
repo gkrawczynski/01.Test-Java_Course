@@ -13,12 +13,19 @@ import java.util.regex.Pattern;
 public class PersonService {
     List<Person> personList;
 
+    /* metoda, ktora zwraca najstarsza kobiete (imie konczy sie na 'a')
+        lub NoWomenException jesli brak kobiet na liscie */
     public List<String> getOldestWomen(List<Person> personList) {
-        if (personList == null) {
-            throw new IllegalArgumentException();
+        List<String> oldestWomen = new ArrayList<>();
+
+        if (personList.isEmpty() || personList == null) {
+            try {
+                throw new NoWomenException();
+            } catch (NoWomenException e) {
+                e.printStackTrace();
+            }
         } else {
             Map<String, Integer> womenMap = new HashMap<>();
-            List<String> oldestWomen = new ArrayList<>();
 
             int maxAge = Integer.MIN_VALUE;
 
@@ -44,12 +51,12 @@ public class PersonService {
                     oldestWomen.add((String) mapEntry.getKey());
                 }
             }
-
-            return oldestWomen;
         }
+        return oldestWomen;
     }
 
 
+    /* metoda, ktora zwraca sredni wiek wszystkich osob */
     public int getAverageAgeOfAllPeople(List<Person> personList) {
         if (personList == null) {
             throw new IllegalArgumentException();
@@ -65,7 +72,7 @@ public class PersonService {
         }
     }
 
-
+    /*  metoda, ktora zwraca sredni wiek mezczyzn  */
     public static int getAverageAgeOfAllMen(List<Person> personList) {
         if (personList == null) {
             throw new IllegalArgumentException();
@@ -85,6 +92,7 @@ public class PersonService {
     }
 
 
+    /* metoda, ktora zwrca sredni wiek kobiet */
     public static int getAverageAgeOfAllWomen(List<Person> personList) {
         if (personList == null) {
             throw new IllegalArgumentException();
@@ -104,7 +112,7 @@ public class PersonService {
     }
 
 
-    /* metode ktora agreguje dwie metody powyzej (tzn: jako drugi parametr przyjmuje funkcje ktora okresla plec) ??? */
+    /* metoda, ktora agreguje dwie metody powyzej (tzn: jako drugi parametr przyjmuje funkcje ktora okresla plec) ??? */
     public int getAverageAge(List<Person> personList, String gender) {
         if (personList == null || gender == null) {
             throw new IllegalArgumentException();
@@ -133,6 +141,7 @@ public class PersonService {
     }
 
 
+    /* metoda, ktora znajdze miasto w ktorym zyje najwiecej ludzi */
     public List<String> getTheMostPopulatedCities(List<Person> personList) {
         if (personList == null) {
             throw new IllegalArgumentException();
@@ -177,6 +186,7 @@ public class PersonService {
     }
 
 
+    /* metoda, ktora zwroci wszystkie rozne miasta z listy osob (rozne tzn: bez powtorzen) */
     public Set<String> getAllCitiesOccurance(List<Person> personList) {
         if (personList == null) {
             throw new IllegalArgumentException();
@@ -191,7 +201,8 @@ public class PersonService {
         }
     }
 
-
+    private class NoWomenException extends Throwable {
+    }
 }
 
 

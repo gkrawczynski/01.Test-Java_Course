@@ -10,11 +10,6 @@ public class Rectangle extends Figure {
     private int length;
     private int width;
 
-//    public Rectangle(int length, int width) {
-//        this.length = length;
-//        this.width = width;
-//    }
-
     @Override
     public String getType(){
         return "Rectangle";
@@ -36,5 +31,10 @@ public class Rectangle extends Figure {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Prostokąt o bokach " + length + "x" + width + ".";
     }
 }

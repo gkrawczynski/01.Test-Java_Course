@@ -3,6 +3,7 @@ package com.course.java.service;
 import com.course.java.model.Circle;
 import com.course.java.model.Rectangle;
 import com.course.java.model.Square;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.*;
@@ -10,24 +11,27 @@ import java.util.*;
 @Data
 public class Figure {
     private static List<Figure> figureList;
+    int i;
+    int length;
+    int width;
 
     public String getType() {
         return "Figure";
     }
 
     //1.
-    public static String createSquare(int side) {
-        return "Kwadrat o boku " + side + ".";
+    public static Figure createSquare(int side) {
+        return new Square(side);
     }
 
     //2.
-    public static String createCircle(int radius) {
-        return "Koło o promieniu " + radius + ".";
+    public static Figure createCircle(int radius) {
+        return new Circle(radius);
     }
 
     //3.
-    public static String createRectangle(int length, int width) {
-        return "Prostokąt o bokach " + length + "x" + width + ".";
+    public static Figure createRectangle(int length, int width) {
+        return new Rectangle(length, width);
     }
 
     public double calculatePerimeter() {
@@ -40,11 +44,12 @@ public class Figure {
 
 
     public static void main(String[] args) {
-        List<String> figures = List.of(Figure.createSquare(10), Figure.createCircle(20),
+        List<Figure> figures = List.of(Figure.createSquare(10), Figure.createCircle(20),
                 Figure.createRectangle(10, 20), Figure.createSquare(15));
 
         //a)
-        for (String f : figures) {
+        System.out.println("a)");
+        for (Figure f : figures) {
             System.out.print("Figura nr " + (figures.indexOf(f) + 1) + ": ");
             System.out.println(f);
         }
@@ -93,7 +98,7 @@ public class Figure {
             }
         }
 
-        System.out.println("\nFigures with max perimeter: ");
+        System.out.println("\nb)\nFigures with max perimeter: ");
         double max1 = FigureHelper.getMaxValue(perimeterMap);
         System.out.println(FigureHelper.getKeysForMaxValue(perimeterMap, max1));
 
@@ -101,22 +106,17 @@ public class Figure {
         double max2 = FigureHelper.getMaxValue(areaMap);
         System.out.println(FigureHelper.getKeysForMaxValue(areaMap, max2));
 
-//        System.out.println("\nPerimeter map: ");
-//        for (String s : perimeterMap.keySet()) {
-//            System.out.println("K: " + s + ", V: " + perimeterMap.get(s));
-//        }
-//
-//        System.out.println("\nArea map: ");
-//        for (String s : areaMap.keySet()) {
-//            System.out.println("K: " + s + ", V: " + areaMap.get(s));
-//        }
 
-
-        //c) ???
+        //c)
+        for(Figure f : figures) {
+            if(f.equals(Figure.createRectangle(10,20))){
+                System.out.println("\nc)\ntu powinno wejsc: index=" + figures.indexOf(f));
+            }
+        }
 
 
         //d)
-        System.out.println();
+        System.out.println("\nd)");
         FigureHelper.getMostOccuringFigure(figureList);
 
     }

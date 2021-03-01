@@ -62,13 +62,16 @@ public class PersonServiceTest {
         //given
         List<String> result1 = List.of("Jola", "Anna");
         List<String> result2 = List.of("Magda", "Magda");
+        List<String> result3 = List.of();
 
         //when
         List<String> oldestWomen = personService.getOldestWomen(peopleList);
+        List<String> oldestWomen2 = personService.getOldestWomen(peopleList);
 
         //then
         Assert.assertEquals(result1, oldestWomen);
         Assert.assertNotEquals(result2, oldestWomen);
+        Assert.assertNotEquals(result3, oldestWomen2);
         System.out.println("OldestWomen: " + oldestWomen);
     }
 

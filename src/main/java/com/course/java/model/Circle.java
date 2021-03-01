@@ -9,10 +9,6 @@ import lombok.Data;
 public class Circle extends Figure {
     private int radius;
 
-//    public Circle(int radius) {
-//        this.radius = radius;
-//    }
-
     @Override
     public String getType(){
         return "Circle";
@@ -34,5 +30,10 @@ public class Circle extends Figure {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Koło o promieniu " + radius + ".";
     }
 }

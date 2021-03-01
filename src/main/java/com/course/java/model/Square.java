@@ -11,10 +11,6 @@ import java.util.List;
 public class Square extends Figure {
     private int side;
 
-//    public Square(int side) {
-//        this.side = side;
-//    }
-
     @Override
     public String getType(){
         return "Square";
@@ -36,5 +32,10 @@ public class Square extends Figure {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Kwadrat o boku " + side + ".";
     }
 }
