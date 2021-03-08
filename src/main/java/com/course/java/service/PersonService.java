@@ -1,13 +1,10 @@
 package com.course.java.service;
 
+import com.course.java.NoWomenException;
 import com.course.java.model.Person;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @AllArgsConstructor
 public class PersonService {
@@ -15,43 +12,36 @@ public class PersonService {
 
     /* metoda, ktora zwraca najstarsza kobiete (imie konczy sie na 'a')
         lub NoWomenException jesli brak kobiet na liscie */
-    public List<Person> getOldestWomen(List<Person> personList) {
+    public List<Person> getOldestWomen(List<Person> personList) throws NoWomenException {
+        List<Person> women = new ArrayList<>();
         List<Person> oldestWomen = new ArrayList<>();
 
-        if (personList.isEmpty() || personList == null) {
-            try {
-                throw new NoWomenException();
-            } catch (NoWomenException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Map<Person, Integer> womenMap = new HashMap<>();
+        if (personList == null || personList.isEmpty()) {
+            throw new IllegalArgumentException("List is null or empty");
+        }
 
-            int maxAge = Integer.MIN_VALUE;
-
-            for (Person person : personList) {
-                Pattern p = Pattern.compile("\\w*a$");
-                Matcher m = p.matcher(person.getFirstName());
-                boolean result = m.matches();
-                if (result) {
-                    int personAge = person.getAge();
-                    if (maxAge < personAge) {
-                        maxAge = personAge;
-                    }
-                    womenMap.put(person, personAge);
-                }
-            }
-
-            Set s = womenMap.entrySet();
-            Iterator i = s.iterator();
-            while (i.hasNext()) {
-                Map.Entry mapEntry = (Map.Entry) i.next();
-                int tmp = (int) mapEntry.getValue();
-                if (tmp == maxAge) {
-                    oldestWomen.add((Person) mapEntry.getKey());
-                }
+        for (Person person : personList) {
+            if (PersonServiceHelper.getGender(person).equals("Female")) {
+                women.add(person);
             }
         }
+
+        if (women.isEmpty()) {
+            throw new NoWomenException("No women on list");
+        }
+
+        int maxAge = Integer.MIN_VALUE;
+        for (Person woman : women) {
+            if (woman.getAge() > maxAge) {
+                maxAge = woman.getAge();
+            }
+        }
+        for (Person woman : women) {
+            if (woman.getAge() == maxAge) {
+                oldestWomen.add(woman);
+            }
+        }
+
         return oldestWomen;
     }
 
@@ -112,7 +102,7 @@ public class PersonService {
     }
 
 
-    /* metoda, ktora agreguje dwie metody powyzej (tzn: jako drugi parametr przyjmuje funkcje ktora okresla plec) ??? */
+    /* metoda, ktora agreguje dwie metody powyzej (tzn: jako drugi parametr przyjmuje funkcje ktora okresla plec) */
     public int getAverageAge(List<Person> personList, String gender) {
         if (personList == null || gender == null) {
             throw new IllegalArgumentException();
@@ -159,25 +149,19 @@ public class PersonService {
             }
 
             /* Find max Value in the Map */
-            Set s = cityMap.entrySet();
-            Iterator i = s.iterator();
             int maxOccurance = Integer.MIN_VALUE;
-
-            while (i.hasNext()) {
-                Map.Entry mapEntry = (Map.Entry) i.next();
-                int tmp = (int) mapEntry.getValue();
-                if (maxOccurance < tmp) {
-                    maxOccurance = tmp;
+            for (Map.Entry<String, Integer> stringIntegerMap1 : cityMap.entrySet()) {
+                int temp = stringIntegerMap1.getValue();
+                if (maxOccurance < temp) {
+                    maxOccurance = temp;
                 }
             }
 
-            /* Find most common Figure in the list of figures */
-            Iterator it = s.iterator();
-            while (it.hasNext()) {
-                Map.Entry mapEntry = (Map.Entry) it.next();
-                int tmp = (int) mapEntry.getValue();
+            /* Find most populated cities */
+            for (Map.Entry<String, Integer> stringIntegerMap2 : cityMap.entrySet()) {
+                int tmp = stringIntegerMap2.getValue();
                 if (tmp == maxOccurance) {
-                    result.add((String) mapEntry.getKey());
+                    result.add(stringIntegerMap2.getKey());
                 }
             }
 
@@ -190,22 +174,17 @@ public class PersonService {
     public Set<String> getAllCitiesOccurance(List<Person> personList) {
         if (personList == null) {
             throw new IllegalArgumentException();
-        } else {
-            Set<String> citySet = new HashSet<>();
-            for (Person p : personList) {
-                String tempCity = p.getCity();
-                citySet.add(tempCity);
-            }
-
-            return citySet;
         }
-    }
 
-    private class NoWomenException extends Throwable {
+        Set<String> citySet = new HashSet<>();
+        for (Person p : personList) {
+            String tempCity = p.getCity();
+            citySet.add(tempCity);
+        }
+
+        return citySet;
     }
 }
-
-
 /*
 Zadanie02:
 Stworz sobie klase Osoba (imie, nazwisko, miasto, wiek)

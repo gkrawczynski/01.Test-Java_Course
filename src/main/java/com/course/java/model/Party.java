@@ -17,4 +17,8 @@ public class Party {
             this.personPartyList = new ArrayList<>();
         }
     }
+
+    public void addPersonToParty(Person p){
+        personPartyList.add(p);
+    }
 }

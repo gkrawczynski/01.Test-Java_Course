@@ -3,7 +3,6 @@ package com.course.java.service;
 import com.course.java.model.Circle;
 import com.course.java.model.Rectangle;
 import com.course.java.model.Square;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.*;
@@ -19,17 +18,16 @@ public class Figure {
         return "Figure";
     }
 
-    //1.
     public static Figure createSquare(int side) {
         return new Square(side);
     }
 
-    //2.
+
     public static Figure createCircle(int radius) {
         return new Circle(radius);
     }
 
-    //3.
+
     public static Figure createRectangle(int length, int width) {
         return new Rectangle(length, width);
     }
@@ -47,15 +45,14 @@ public class Figure {
         List<Figure> figures = List.of(Figure.createSquare(10), Figure.createCircle(20),
                 Figure.createRectangle(10, 20), Figure.createSquare(15));
 
-        //a)
+        // 1.a)
         System.out.println("a)");
         for (Figure f : figures) {
-            System.out.print("Figura nr " + (figures.indexOf(f) + 1) + ": ");
             System.out.println(f);
         }
 
 
-        //b)
+        // 1.b)
         figureList = List.of(
                 new Square(5),
                 new Square(8),
@@ -69,9 +66,15 @@ public class Figure {
                 new Rectangle(2, 4)
         );
 
+        /*
+          Solution I: map
+           znajdź figurę z największym obwodem
+           znajdź figurę z największym polem
+        */
         Map<String, Double> perimeterMap = new HashMap<>();
         Map<String, Double> areaMap = new HashMap<>();
 
+        System.out.println("\nb)");
         for (Figure f : figureList) {
             String figureType = f.getType();
 
@@ -98,30 +101,74 @@ public class Figure {
             }
         }
 
-        System.out.println("\nb)\nFigures with max perimeter: ");
+        System.out.print("Figures with max perimeter: ");
         double max1 = FigureHelper.getMaxValue(perimeterMap);
-        System.out.println(FigureHelper.getKeysForMaxValue(perimeterMap, max1));
+        System.out.print(FigureHelper.getKeysForMaxValue(perimeterMap, max1));
 
-        System.out.println("\nFigures with max area: ");
+        System.out.print("\nFigures with max area: ");
         double max2 = FigureHelper.getMaxValue(areaMap);
         System.out.println(FigureHelper.getKeysForMaxValue(areaMap, max2));
 
 
+        /*
+           Solution II: for each
+            znajdź figurę z największym obwodem
+        */
+        double tempMaxPerimeter = Integer.MIN_VALUE;
+        for (Figure figure : figureList) {
+            double v = figure.calculatePerimeter();
+            if (v > tempMaxPerimeter) {
+                tempMaxPerimeter = v;
+            }
+        }
+        for (Figure figure : figureList) {
+            if (figure.calculatePerimeter() == tempMaxPerimeter) {
+                System.out.println("\nMax perimiter figures: " + figure);
+            }
+        }
+
+        /* znajdź figurę z największym polem */
+        double tempMaxArea = Integer.MIN_VALUE;
+        for (Figure figure : figureList) {
+            double v = figure.calculateArea();
+            if (v > tempMaxArea) {
+                tempMaxArea = v;
+            }
+        }
+        for (Figure figure : figureList) {
+            if (figure.calculateArea() == tempMaxArea) {
+                System.out.println("Max area figures: " + figure);
+            }
+        }
+
+
+        /*
+           Solution III: stream
+            znajdź figurę z największym obwodem
+        */
+        System.out.print("\nMax perimiter figures: ");
+        System.out.println(figureList.stream()
+                .max(Comparator.comparingDouble(Figure::calculatePerimeter)).orElse(null));
+
+        /* znajdź figurę z największym polem */
+        System.out.print("Max area figures: ");
+        System.out.println(figureList.stream()
+                .max(Comparator.comparingDouble(Figure::calculateArea)).orElse(null));
+
+
         //c)
-        for(Figure f : figures) {
-            if(f.equals(Figure.createRectangle(10,20))){
+        for (Figure f : figures) {
+            if (f.equals(Figure.createRectangle(10, 20))) {
                 System.out.println("\nc)\ntu powinno wejsc: index=" + figures.indexOf(f));
             }
         }
 
 
-        //d)
+        //d) napisz metode ktora napisze ktorego typu figur jest najwiecej w tablicy lub liscie figur
         System.out.println("\nd)");
         FigureHelper.getMostOccuringFigure(figureList);
-
     }
 }
-
 /*
 Zadanie 01:
 a) Napisz kod w taki sposób aby poniższy fragment zadziałał i dał dokładnie taki wynik jak oczekuje:

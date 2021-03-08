@@ -1,15 +1,13 @@
 package com.course.java.service;
 
+import com.course.java.NoWomenException;
 import com.course.java.model.Person;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 public class PersonServiceTest {
     private PersonService personService;
@@ -50,7 +48,7 @@ public class PersonServiceTest {
     private List<Person> initPeopleList() {
         return List.of(
                 new Person("John", "Kowalski", 21, "Denver", friendsSet1),
-                new Person("Anna", "Nowak", 48, "San Diego", friendsSet2),
+                new Person("Anna", "Nowak", 48, "San Diego"),
                 new Person("Tom", "Brown", 28, "Chicago", friendsSet1),
                 new Person("Magda", "Smith", 31, "Denver", friendsSet2),
                 new Person("Jola", "Podolska", 48, "New York City")
@@ -58,7 +56,7 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void shouldReturnOldestWoman() {
+    public void shouldReturnOldestWomen() throws NoWomenException {
         //given
         List<Person> result1 = List.of(
                 new Person("Anna", "Nowak", 48, "San Diego"),
@@ -74,12 +72,11 @@ public class PersonServiceTest {
 
         //when
         List<Person> oldestWomen = personService.getOldestWomen(peopleList);
-        List<Person> oldestWomen2 = personService.getOldestWomen(peopleList);
 
         //then
         Assert.assertEquals(result1, oldestWomen);
         Assert.assertNotEquals(result2, oldestWomen);
-        Assert.assertNotEquals(result3, oldestWomen2);
+        Assert.assertNotEquals(result3, oldestWomen);
         System.out.println("OldestWomen: " + oldestWomen);
     }
 
@@ -177,6 +174,6 @@ public class PersonServiceTest {
         //then
         Assert.assertEquals(allCities1, result);
         Assert.assertNotEquals(allCities2, result);
-        System.out.println(result);
+        System.out.println("All cities: " + result);
     }
 }
