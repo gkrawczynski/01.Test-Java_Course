@@ -1,6 +1,5 @@
 package com.course.java.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;

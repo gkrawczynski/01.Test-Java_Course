@@ -1,9 +1,7 @@
 package com.course.java.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
