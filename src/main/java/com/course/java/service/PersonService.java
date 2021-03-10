@@ -21,7 +21,7 @@ public class PersonService {
         }
 
         for (Person person : personList) {
-            if (PersonServiceHelper.getGender(person).equals("Female")) {
+            if (person.getGender().equals("Female")) {
                 women.add(person);
             }
         }
@@ -71,7 +71,7 @@ public class PersonService {
             int sumMenAge = 0;
 
             for (Person person : personList) {
-                if (PersonServiceHelper.getGender(person).equals("Male")) {
+                if (person.getGender().equals("Male")) {
                     sumMenAge += person.getAge();
                     numberOfMen++;
                 }
@@ -91,7 +91,7 @@ public class PersonService {
             int sumWomenAge = 0;
 
             for (Person person : personList) {
-                if (PersonServiceHelper.getGender(person).equals("Female")) {
+                if (person.getGender().equals("Female")) {
                     sumWomenAge += person.getAge();
                     numberOfWomen++;
                 }
@@ -114,13 +114,13 @@ public class PersonService {
 
             if (gender.equals("Female")) {
                 for (Person p : personList) {
-                    if (PersonServiceHelper.getGender(p).equals("Female"))
+                    if (p.getGender().equals("Female"))
                         womenList.add(p);
                 }
                 result = PersonService.getAverageAgeOfAllWomen(womenList);
             } else {
                 for (Person p : personList) {
-                    if (PersonServiceHelper.getGender(p).equals("Male"))
+                    if (p.getGender().equals("Male"))
                         menList.add(p);
                 }
                 result = PersonService.getAverageAgeOfAllMen(menList);

@@ -47,8 +47,15 @@ public class Figure {
 
         // 1.a)
         System.out.println("a)");
+        int number = 1;
         for (Figure f : figures) {
-            System.out.println(f);
+            System.out.println("Figura nr " + number + ": " + f);
+            number++;
+        }
+
+        System.out.println();
+        for (Figure f : figures) {
+            System.out.println("Figura nr " + (figures.indexOf(f) + 1) + ": " + f);
         }
 
 

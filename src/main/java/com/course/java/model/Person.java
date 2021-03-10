@@ -35,5 +35,15 @@ public class Person {
         }
     }
 
+    public String getGender() {
+        String result = "";
+        if (getFirstName().endsWith("a")) {
+            result = "Female";
+        } else {
+            result = "Male";
+        }
+
+        return result;
+    }
 }
 
